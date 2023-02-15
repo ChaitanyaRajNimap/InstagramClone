@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   inputConatiner: {
     marginBottom: 15,
     padding: 15,
+    paddingVertical: 8,
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#fff',

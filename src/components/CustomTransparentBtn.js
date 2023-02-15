@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const CustomLongBtn = ({title, onPress}) => {
+const CustomTransparentBtn = ({title, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
       <Text style={styles.buttonText}>{title}</Text>
@@ -9,18 +9,19 @@ const CustomLongBtn = ({title, onPress}) => {
   );
 };
 
-export default CustomLongBtn;
+export default CustomTransparentBtn;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#3333ff',
+    padding: 5,
+    borderColor: '#fff',
+    borderWidth: 1,
     borderRadius: 5,
+    alignItems: 'center',
   },
   buttonText: {
-    padding: 15,
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 });
