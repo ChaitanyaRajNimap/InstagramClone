@@ -1,14 +1,14 @@
 import React, {useState, useRef} from 'react';
 import {View, Text, StyleSheet, TextInput, Animated} from 'react-native';
 
-const CustomTextInput = ({label, ...props}) => {
+const CustomTextInput = ({label, customStyles, ...props}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
   return (
-    <View style={styles.inputConatiner}>
+    <View style={[styles.inputConatiner, {...customStyles}]}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         {...props}

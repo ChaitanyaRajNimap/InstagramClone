@@ -13,7 +13,7 @@ export default CustomTransparentBtn;
 
 const styles = StyleSheet.create({
   button: {
-    padding: 5,
+    padding: 15,
     borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 5,

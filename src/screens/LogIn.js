@@ -65,7 +65,7 @@ const LogIn = ({navigation}) => {
             <KeyboardAvoidingView enabled>
               <View style={styles.inputConatiner}>
                 <Text style={styles.label}>
-                  Username, email address or mobile number
+                  Username, email address or mobile...
                 </Text>
                 <TextInput
                   style={styles.textInput}
@@ -123,7 +123,9 @@ const LogIn = ({navigation}) => {
               <Text style={styles.error}>{error.passwordErr}</Text>
               <CustomLongBtn title="Log In" onPress={onLogIn} />
               <View style={styles.forgottenTextConatiner}>
-                <TouchableOpacity style={styles.forgottenTextBtn}>
+                <TouchableOpacity
+                  style={styles.forgottenTextBtn}
+                  onPress={() => navigation.navigate('ForgottenPswd')}>
                   <Text style={styles.forgottenText}>Forgotten Password?</Text>
                 </TouchableOpacity>
               </View>
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
     color: '#f00',
   },
   newAccBtnContainer: {
-    marginTop: 100,
+    marginTop: 80,
   },
   meta: {
     marginTop: 20,
