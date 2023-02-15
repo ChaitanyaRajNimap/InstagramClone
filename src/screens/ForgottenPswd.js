@@ -54,6 +54,8 @@ const ForgottenPswd = ({navigation}) => {
                   let error = validation.validateUserName(value);
                   setUserNameErr(error);
                 }}
+                returnKeyType="next"
+                onSubmitEditing={Keyboard.dismiss}
               />
               <Text style={styles.error}>{userNameErr}</Text>
               <CustomLongBtn
