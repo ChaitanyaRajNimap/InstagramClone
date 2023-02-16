@@ -16,6 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import CustomLongBtn from '../components/CustomLongBtn';
 import CustomTransparentBtn from '../components/CustomTransparentBtn';
 import validation from '../utils/validation';
+import {COLORS} from '../utils/colors';
 
 const LogIn = ({navigation}) => {
   //For storing inputs
@@ -41,6 +42,7 @@ const LogIn = ({navigation}) => {
     if (!userNameErr && !passwordErr) {
       setInputs(prevValues => {
         return {
+          ...prevValues,
           username: null,
           password: null,
         };
@@ -52,7 +54,7 @@ const LogIn = ({navigation}) => {
   return (
     <SafeAreaView style={GLOBALSTYLES.safearea}>
       <LinearGradient
-        colors={['#0f3d3d', '#00334d']}
+        colors={[COLORS.greenGradient, COLORS.blueGradient]}
         style={[GLOBALSTYLES.rootContainer, styles.linearGradient]}>
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.conatiner}>
@@ -129,12 +131,11 @@ const LogIn = ({navigation}) => {
                   <Text style={styles.forgottenText}>Forgotten Password?</Text>
                 </TouchableOpacity>
               </View>
-              <View style={styles.newAccBtnContainer}>
-                <CustomTransparentBtn
-                  title="Create new account"
-                  onPress={() => {}}
-                />
-              </View>
+              <CustomTransparentBtn
+                title="Create new account"
+                onPress={() => navigation.navigate('SignUpWithMobile')}
+                customStyles={styles.newAccBtn}
+              />
             </KeyboardAvoidingView>
             <View style={styles.meta}>
               <Image source={require('../assests/images/meta-logo-25.png')} />
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
     width: '60%',
   },
   forgottenText: {
-    color: '#fff',
+    color: COLORS.white,
     fontSize: 20,
     fontWeight: 700,
   },
@@ -178,20 +179,21 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#fff',
-    backgroundColor: 'rgba(255, 255, 255,0.2)',
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
   },
-  label: {color: '#fff'},
+  label: {color: COLORS.white},
   textInput: {
     padding: 0,
-    color: '#fff',
+    color: COLORS.white,
     fontSize: 20,
   },
   error: {
     marginBottom: 5,
-    color: '#f00',
+    color: COLORS.red,
   },
-  newAccBtnContainer: {
+  newAccBtn: {
+    padding: 7,
     marginTop: 80,
   },
   meta: {
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
   },
   metaText: {
     marginLeft: 5,
-    color: '#fff',
+    color: COLORS.white,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',

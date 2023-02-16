@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LogIn from './src/screens/LogIn';
 import ForgottenPswd from './src/screens/ForgottenPswd';
+import SignUpWithMobile from './src/screens/SignUpWithMobile';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ const App = () => {
         <Stack.Screen
           name="ForgottenPswd"
           component={ForgottenPswd}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SignUpWithMobile"
+          component={SignUpWithMobile}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
