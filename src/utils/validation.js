@@ -41,10 +41,15 @@ const validateMobile = value => {
   return null;
 };
 
+const validateField = value => {
+  return value ? null : message.EMPTY_FIELD;
+};
+
 const validation = {
   validateUserName,
   validatePassword,
   validateMobile,
+  validateField,
 };
 
 export default validation;

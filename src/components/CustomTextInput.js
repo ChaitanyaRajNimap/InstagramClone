@@ -1,7 +1,12 @@
 import React, {useState, useRef} from 'react';
 import {View, Text, StyleSheet, TextInput, Animated} from 'react-native';
 
-const CustomTextInput = ({label, customStyles, ...props}) => {
+const CustomTextInput = ({
+  label,
+  customStyles,
+  keyboardType = 'default',
+  ...props
+}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => setIsFocused(true);
@@ -17,6 +22,7 @@ const CustomTextInput = ({label, customStyles, ...props}) => {
         onBlur={handleBlur}
         onChangeText={text => props.onChangeText(text)}
         value={props.value}
+        keyboardType={keyboardType}
       />
     </View>
   );

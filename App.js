@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LogIn from './src/screens/LogIn';
 import ForgottenPswd from './src/screens/ForgottenPswd';
 import SignUpWithMobile from './src/screens/SignUpWithMobile';
+import MobileVerification from './src/screens/MobileVerification';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ const App = () => {
         <Stack.Screen
           name="SignUpWithMobile"
           component={SignUpWithMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MobileVerification"
+          component={MobileVerification}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

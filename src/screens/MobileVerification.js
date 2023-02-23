@@ -18,20 +18,11 @@ import CustomTransparentBtn from '../components/CustomTransparentBtn';
 import validation from '../utils/validation';
 import {COLORS} from '../utils/colors';
 
-const SignUpWithMobile = ({navigation}) => {
-  const [mobileNo, setMobileNo] = useState(null);
-  const [mobileNoErr, setMobileNoErr] = useState(null);
+const MobileVerification = ({navigation, route}) => {
+  const {mobileNo} = route.params;
 
-  //For handling Next
-  const handleNext = () => {
-    let error = validation.validateMobile(mobileNo);
-    setMobileNoErr(error);
-    if (!error) {
-      navigation.navigate('MobileVerification', {
-        mobileNo: mobileNo,
-      });
-    }
-  };
+  const [otpInput, setOtpInput] = useState(null);
+  const [otpInputError, setOtpInputError] = useState(null);
 
   return (
     <SafeAreaView style={GLOBALSTYLES.safearea}>
@@ -40,50 +31,42 @@ const SignUpWithMobile = ({navigation}) => {
         style={[GLOBALSTYLES.rootContainer, styles.linearGradient]}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          style={styles.conatiner}>
-          <View style={styles.conatiner}>
+          style={styles.container}>
+          <View style={styles.container}>
             <CustomNavigationBar back={true} headername="" />
-            <Text style={styles.heading}>What's your mobile number?</Text>
+            <Text style={styles.heading}>Enter the confirmation code</Text>
             <Text style={styles.text}>
-              Enter the mobile number on which you can be contacted. No one will
-              see this on your profile.
+              To confirm your account, enter the 6-digit code that we sent to
+              +91{mobileNo}
             </Text>
             <KeyboardAvoidingView enabled>
               <CustomTextInput
-                label="Mobile number"
+                label="Confirmation code"
                 customStyles={styles.inputTextContainer}
                 onChangeText={value => {
-                  setMobileNo(value);
-                  let error = validation.validateMobile(value);
-                  setMobileNoErr(error);
+                  setOtpInput(value);
+                  let error = validation.validateField(value);
+                  setOtpInputError(error);
                 }}
-                keyboardType="numeric"
                 returnKeyType="next"
                 onSubmitEditing={Keyboard.dismiss}
               />
-              {mobileNoErr ? (
-                <Text style={styles.error}>{mobileNoErr}</Text>
-              ) : (
-                <Text style={styles.textMsg}>
-                  You may receive SMS notifications from us for security and
-                  login purposes.
+              {otpInputError ? (
+                <Text style={styles.error}>
+                  Code is required. Check your email or text message to find the
+                  code.
                 </Text>
-              )}
+              ) : null}
               <CustomLongBtn
                 title="Next"
-                onPress={handleNext}
+                onPress={() => {}}
                 customStyles={styles.findBtnContainer}
               />
               <CustomTransparentBtn
-                title="Sign up with email address"
+                title="I Didn't Receive the Code"
                 onPress={() => {}}
               />
             </KeyboardAvoidingView>
-            <TouchableOpacity style={styles.alreadyAcc}>
-              <Text style={styles.alreadyAccText}>
-                Already have an account?
-              </Text>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </LinearGradient>
@@ -91,11 +74,11 @@ const SignUpWithMobile = ({navigation}) => {
   );
 };
 
-export default SignUpWithMobile;
+export default MobileVerification;
 
 const styles = StyleSheet.create({
   linearGradient: {padding: 20, flex: 1},
-  conatiner: {flex: 1},
+  container: {flex: 1},
   heading: {
     color: COLORS.white,
     fontSize: 28,
@@ -108,7 +91,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputTextContainer: {marginBottom: 8},
-  findBtnContainer: {marginBottom: 15},
+  findBtnContainer: {
+    marginTop: 10,
+    marginBottom: 15,
+  },
   error: {
     marginBottom: 20,
     color: COLORS.red,
@@ -116,14 +102,5 @@ const styles = StyleSheet.create({
   textMsg: {
     marginBottom: 20,
     color: COLORS.white,
-  },
-  alreadyAcc: {
-    marginTop: 190,
-    alignItems: 'center',
-  },
-  alreadyAccText: {
-    color: COLORS.blue100,
-    fontSize: 15,
-    fontWeight: 'bold',
   },
 });
