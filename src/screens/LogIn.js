@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   forgottenTextBtn: {
-    width: '60%',
+    width: '70%',
   },
   forgottenText: {
     color: COLORS.white,

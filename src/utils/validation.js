@@ -2,8 +2,10 @@
 const message = {
   EMPTY_FIELD: 'This Feild is Required.',
   EMPTY_MOBILE: 'Mobile number required.',
+  EMPTY_PASSWORD: 'Password cannot be empty.',
   INVALID_FIELD: 'Please enter valid data.',
-  INVALID_PASSWORD: 'Please enter valid password.',
+  INVALID_PASSWORD:
+    'This password is too short. Create a longer password with at least 6 letters and numbers.',
   INVALID_MOBILE:
     'Looks like your mobile number may be incorrect. Try entering your full number, including the country code.',
 };

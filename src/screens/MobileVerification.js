@@ -17,12 +17,30 @@ import CustomLongBtn from '../components/CustomLongBtn';
 import CustomTransparentBtn from '../components/CustomTransparentBtn';
 import validation from '../utils/validation';
 import {COLORS} from '../utils/colors';
+import auth from '@react-native-firebase/auth';
 
 const MobileVerification = ({navigation, route}) => {
-  const {mobileNo} = route.params;
+  const {confirmData, mobileNo} = route.params;
 
   const [otpInput, setOtpInput] = useState(null);
   const [otpInputError, setOtpInputError] = useState(null);
+
+  //For handling Next
+  const handleNext = async () => {
+    console.log(confirmData);
+    let error = validation.validateField(otpInput);
+    setOtpInputError(error);
+    if (!error) {
+      try {
+        const response = await confirmData.confirm(otpInput);
+        console.log('Response from confirmData otp ', response);
+        alert('Your number is verified!');
+        navigation.navigate('NameScreen');
+      } catch (err) {
+        console.log('Error in opt verification ', err);
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={GLOBALSTYLES.safearea}>
@@ -59,7 +77,7 @@ const MobileVerification = ({navigation, route}) => {
               ) : null}
               <CustomLongBtn
                 title="Next"
-                onPress={() => {}}
+                onPress={handleNext}
                 customStyles={styles.findBtnContainer}
               />
               <CustomTransparentBtn

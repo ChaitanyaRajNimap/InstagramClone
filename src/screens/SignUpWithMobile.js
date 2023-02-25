@@ -17,19 +17,29 @@ import CustomLongBtn from '../components/CustomLongBtn';
 import CustomTransparentBtn from '../components/CustomTransparentBtn';
 import validation from '../utils/validation';
 import {COLORS} from '../utils/colors';
+import auth from '@react-native-firebase/auth';
 
 const SignUpWithMobile = ({navigation}) => {
   const [mobileNo, setMobileNo] = useState(null);
   const [mobileNoErr, setMobileNoErr] = useState(null);
 
   //For handling Next
-  const handleNext = () => {
+  const handleNext = async () => {
     let error = validation.validateMobile(mobileNo);
     setMobileNoErr(error);
     if (!error) {
-      navigation.navigate('MobileVerification', {
-        mobileNo: mobileNo,
-      });
+      try {
+        const mobNo = '+91' + mobileNo;
+        const response = await auth().signInWithPhoneNumber(mobNo);
+        navigation.navigate('MobileVerification', {
+          confirmData: response,
+          mobileNo: mobileNo,
+        });
+        console.log('Response from signInWithPhoneNumber', response);
+        alert('OTP has been sent on entered number, Please verify it...');
+      } catch (err) {
+        console.log('Error in mobile auth ', err);
+      }
     }
   };
 
@@ -79,7 +89,9 @@ const SignUpWithMobile = ({navigation}) => {
                 onPress={() => {}}
               />
             </KeyboardAvoidingView>
-            <TouchableOpacity style={styles.alreadyAcc}>
+            <TouchableOpacity
+              style={styles.alreadyAcc}
+              onPress={() => navigation.navigate('LogIn')}>
               <Text style={styles.alreadyAccText}>
                 Already have an account?
               </Text>
@@ -118,7 +130,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   alreadyAcc: {
-    marginTop: 190,
+    marginTop: 160,
     alignItems: 'center',
   },
   alreadyAccText: {
