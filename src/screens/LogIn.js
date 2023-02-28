@@ -17,6 +17,7 @@ import CustomLongBtn from '../components/CustomLongBtn';
 import CustomTransparentBtn from '../components/CustomTransparentBtn';
 import validation from '../utils/validation';
 import {COLORS} from '../utils/colors';
+import CustomTextInput from '../components/CustomTextInput';
 
 const LogIn = ({navigation}) => {
   //For storing inputs
@@ -39,7 +40,21 @@ const LogIn = ({navigation}) => {
     let userNameErr = validation.validateUserName(inputs.username);
     let passwordErr = validation.validatePassword(inputs.password);
 
+    setError(prevErr => {
+      return {
+        ...prevErr,
+        userNameErr: userNameErr,
+      };
+    });
+    setError(prevErr => {
+      return {
+        ...prevErr,
+        passwordErr: passwordErr,
+      };
+    });
+
     if (!userNameErr && !passwordErr) {
+      console.log('LOG IN', inputs.username, inputs.password);
       setInputs(prevValues => {
         return {
           ...prevValues,
@@ -65,7 +80,7 @@ const LogIn = ({navigation}) => {
               />
             </View>
             <KeyboardAvoidingView enabled>
-              <View style={styles.inputConatiner}>
+              {/* <View style={styles.inputConatiner}>
                 <Text style={styles.label}>
                   Username, email address or mobile...
                 </Text>
@@ -94,9 +109,29 @@ const LogIn = ({navigation}) => {
                   }
                   blurOnSubmit={false}
                 />
-              </View>
+              </View> */}
+              <CustomTextInput
+                label="Username, email address or mobile..."
+                customStyles={styles.inputConatiner}
+                onChangeText={value => {
+                  setInputs(prevValues => {
+                    return {
+                      ...prevValues,
+                      username: value,
+                    };
+                  });
+                  let error = validation.validateUserName(value);
+                  setError(prevErr => {
+                    return {
+                      ...prevErr,
+                      userNameErr: error,
+                    };
+                  });
+                }}
+              />
+
               <Text style={styles.error}>{error.userNameErr}</Text>
-              <View style={styles.inputConatiner}>
+              {/* <View style={styles.inputConatiner}>
                 <Text style={styles.label}>Password</Text>
                 <TextInput
                   style={styles.textInput}
@@ -121,7 +156,26 @@ const LogIn = ({navigation}) => {
                   onSubmitEditing={Keyboard.dismiss}
                   blurOnSubmit={false}
                 />
-              </View>
+              </View> */}
+              <CustomTextInput
+                label="Password"
+                customStyles={styles.inputConatiner}
+                onChangeText={value => {
+                  setInputs(prevValues => {
+                    return {
+                      ...prevValues,
+                      password: value,
+                    };
+                  });
+                  let error = validation.validatePassword(value);
+                  setError(prevErr => {
+                    return {
+                      ...prevErr,
+                      passwordErr: error,
+                    };
+                  });
+                }}
+              />
               <Text style={styles.error}>{error.passwordErr}</Text>
               <CustomLongBtn title="Log In" onPress={onLogIn} />
               <View style={styles.forgottenTextConatiner}>

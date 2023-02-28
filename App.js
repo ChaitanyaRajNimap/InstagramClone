@@ -17,7 +17,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LogIn">
-        {/* <Stack.Screen
+        <Stack.Screen
           name="LogIn"
           component={LogIn}
           options={{headerShown: false}}
@@ -46,7 +46,7 @@ const App = () => {
           name="CreatePswd"
           component={CreatePswd}
           options={{headerShown: false}}
-        /> */}
+        />
         <Stack.Screen
           name="SaveLoginInfo"
           component={SaveLoginInfo}
