@@ -59,7 +59,7 @@ const SignUpWithMobile = ({navigation}) => {
               see this on your profile.
             </Text>
             <KeyboardAvoidingView enabled>
-              <CustomTextInput
+              {/* <CustomTextInput
                 label="Mobile number"
                 customStyles={styles.inputTextContainer}
                 onChangeText={value => {
@@ -70,6 +70,15 @@ const SignUpWithMobile = ({navigation}) => {
                 keyboardType="numeric"
                 returnKeyType="next"
                 onSubmitEditing={Keyboard.dismiss}
+              /> */}
+              <CustomTextInput
+                label="Mobile number"
+                customStyles={styles.inputConatiner}
+                onChangeText={value => {
+                  setMobileNo(value);
+                  let error = validation.validateMobile(value);
+                  setMobileNoErr(error);
+                }}
               />
               {mobileNoErr ? (
                 <Text style={styles.error}>{mobileNoErr}</Text>
@@ -120,6 +129,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputTextContainer: {marginBottom: 8},
+  inputConatiner: {
+    padding: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
+  },
   findBtnContainer: {marginBottom: 15},
   error: {
     marginBottom: 20,

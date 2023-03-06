@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import GLOBALSTYLES from '../utils/styles';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,20 +16,32 @@ import CustomTextInput from '../components/CustomTextInput';
 import CustomLongBtn from '../components/CustomLongBtn';
 import validation from '../utils/validation';
 import {COLORS} from '../utils/colors';
+import DatePicker from 'react-native-date-picker';
 
 const BirthDate = ({navigation}) => {
-  const [birthDate, setBirthDate] = useState(null);
-  const [birthDateError, setBirthDateError] = useState(null);
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+  const [dateToDispaly, setDateToDisplay] = useState(null);
+
+  useEffect(() => {
+    let options = {day: 'numeric', month: 'long', year: 'numeric'};
+    let formattedDate = date.toLocaleDateString('en-US', options);
+
+    setDateToDisplay(formattedDate);
+  }, [date]);
 
   //For handling Next
-  const handleNext = () => {
-    let error = validation.validateField(birthDate);
-    setBirthDateError(error);
-    if (!error) {
-      console.log('birthDate : ', birthDate);
-      //   navigation.navigate('SaveLoginInfo');
-    }
-  };
+  // const handleNext = () => {
+  //   let error = validation.validateField(birthDate);
+  //   setBirthDateError(error);
+  //   if (!error) {
+  //     console.log('birthDate : ', birthDate);
+  //     //   navigation.navigate('SaveLoginInfo');
+  //   }
+  // };
+
+  console.log('DATE : ', date);
+  console.log('DATE TO DISPLAY : ', dateToDispaly);
 
   return (
     <SafeAreaView style={GLOBALSTYLES.safearea}>
@@ -45,8 +58,8 @@ const BirthDate = ({navigation}) => {
               Why do I need to provide my date of birth?
             </Text>
           </Text>
-          <KeyboardAvoidingView enabled>
-            <CustomTextInput
+          {/* <KeyboardAvoidingView enabled> */}
+          {/* <CustomTextInput
               label="Birthday (0 year old)"
               customStyles={styles.inputTextContainer}
               onChangeText={value => {
@@ -56,16 +69,33 @@ const BirthDate = ({navigation}) => {
               }}
               returnKeyType="next"
               onSubmitEditing={Keyboard.dismiss}
-            />
-            {birthDateError ? (
+            /> */}
+          {/* <CustomTextInput
+              label="Birthday (0 year old)"
+              customStyles={styles.inputConatiner}
+              // onChangeText={value => {
+              //   setBirthDate(value);
+              //   let error = validation.validateField(value);
+              //   setBirthDateError(error);
+              // }}
+            /> */}
+          <TouchableOpacity
+            style={styles.inputConatiner}
+            onPress={() => {
+              console.log('Pressed');
+              setOpen(true);
+            }}>
+            <Text style={styles.btnTextStyle}>date</Text>
+          </TouchableOpacity>
+          {/* {birthDateError ? (
               <Text style={styles.error}>{birthDateError}</Text>
-            ) : null}
-            <CustomLongBtn
-              title="Next"
-              onPress={handleNext}
-              customStyles={styles.nextBtnContainer}
-            />
-          </KeyboardAvoidingView>
+            ) : null} */}
+          <CustomLongBtn
+            title="Next"
+            onPress={() => {}}
+            customStyles={styles.nextBtnContainer}
+          />
+          {/* </KeyboardAvoidingView> */}
           <View style={styles.bottomView}>
             <TouchableOpacity
               style={styles.alreadyAcc}
@@ -76,6 +106,19 @@ const BirthDate = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          mode="date"
+          onConfirm={date => {
+            setOpen(false);
+            setDate(date);
+          }}
+          onCancel={() => setOpen(false)}
+          maximumDate={new Date()}
+          theme="dark"
+        />
       </LinearGradient>
     </SafeAreaView>
   );
@@ -98,6 +141,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputTextContainer: {marginBottom: 8},
+  inputConatiner: {
+    padding: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
+  },
   error: {marginBottom: 20, color: COLORS.red},
   nextBtnContainer: {marginTop: 10, marginBottom: 15},
   alreadyAcc: {alignItems: 'center'},
@@ -111,5 +162,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  btnTextStyle: {
+    paddingVertical: 5,
+    color: COLORS.white,
+    fontSize: 20,
+    marginLeft: 5,
   },
 });

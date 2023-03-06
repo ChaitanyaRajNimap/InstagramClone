@@ -47,7 +47,7 @@ const ForgottenPswd = ({navigation}) => {
               <Text style={styles.needHelp}>Need more help?</Text>
             </TouchableOpacity>
             <KeyboardAvoidingView enabled>
-              <CustomTextInput
+              {/* <CustomTextInput
                 label="Username, email address or mobile..."
                 customStyles={styles.inputTextContainer}
                 onChangeText={value => {
@@ -57,6 +57,15 @@ const ForgottenPswd = ({navigation}) => {
                 }}
                 returnKeyType="next"
                 onSubmitEditing={Keyboard.dismiss}
+              /> */}
+              <CustomTextInput
+                label="Username, email address or mobile..."
+                customStyles={styles.inputConatiner}
+                onChangeText={value => {
+                  setUserName(value);
+                  let error = validation.validateUserName(value);
+                  setUserNameErr(error);
+                }}
               />
               <Text style={styles.error}>{userNameErr}</Text>
               <CustomLongBtn
@@ -98,6 +107,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   inputTextContainer: {marginBottom: 8},
+  inputConatiner: {
+    padding: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
+  },
   findBtnContainer: {marginBottom: 15},
   error: {
     marginBottom: 5,

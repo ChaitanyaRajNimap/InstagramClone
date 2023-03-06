@@ -58,7 +58,7 @@ const MobileVerification = ({navigation, route}) => {
               +91{mobileNo}
             </Text>
             <KeyboardAvoidingView enabled>
-              <CustomTextInput
+              {/* <CustomTextInput
                 label="Confirmation code"
                 customStyles={styles.inputTextContainer}
                 onChangeText={value => {
@@ -68,6 +68,15 @@ const MobileVerification = ({navigation, route}) => {
                 }}
                 returnKeyType="next"
                 onSubmitEditing={Keyboard.dismiss}
+              /> */}
+              <CustomTextInput
+                label="Confirmation code"
+                customStyles={styles.inputConatiner}
+                onChangeText={value => {
+                  setOtpInput(value);
+                  let error = validation.validateField(value);
+                  setOtpInputError(error);
+                }}
               />
               {otpInputError ? (
                 <Text style={styles.error}>
@@ -109,6 +118,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputTextContainer: {marginBottom: 8},
+  inputConatiner: {
+    padding: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
+  },
   findBtnContainer: {
     marginTop: 10,
     marginBottom: 15,

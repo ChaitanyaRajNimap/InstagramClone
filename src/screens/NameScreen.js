@@ -39,7 +39,7 @@ const NameScreen = ({navigation}) => {
           <CustomNavigationBar back={true} headername="" />
           <Text style={styles.heading}>What's your name?</Text>
           <KeyboardAvoidingView enabled>
-            <CustomTextInput
+            {/* <CustomTextInput
               label="Full name"
               customStyles={styles.inputTextContainer}
               onChangeText={value => {
@@ -49,6 +49,15 @@ const NameScreen = ({navigation}) => {
               }}
               returnKeyType="next"
               onSubmitEditing={Keyboard.dismiss}
+            /> */}
+            <CustomTextInput
+              label="Full name"
+              customStyles={styles.inputConatiner}
+              onChangeText={value => {
+                setFullName(value);
+                let error = validation.validateField(value);
+                setFullNameError(error);
+              }}
             />
             {fullNameError ? (
               <Text style={styles.error}>Please enter your full name</Text>
@@ -85,6 +94,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   inputTextContainer: {marginTop: 25, marginBottom: 8},
+  inputConatiner: {
+    padding: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
+  },
   error: {marginBottom: 5, color: COLORS.red},
   nextBtnContainer: {marginTop: 10, marginBottom: 15},
   alreadyAcc: {alignItems: 'center'},

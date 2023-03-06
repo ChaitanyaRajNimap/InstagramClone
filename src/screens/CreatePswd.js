@@ -43,7 +43,7 @@ const CreatePswd = ({navigation}) => {
             something that others can't guess.
           </Text>
           <KeyboardAvoidingView enabled>
-            <CustomTextInput
+            {/* <CustomTextInput
               label="Password"
               customStyles={styles.inputTextContainer}
               onChangeText={value => {
@@ -53,6 +53,15 @@ const CreatePswd = ({navigation}) => {
               }}
               returnKeyType="next"
               onSubmitEditing={Keyboard.dismiss}
+            /> */}
+            <CustomTextInput
+              label="Password"
+              customStyles={styles.inputConatiner}
+              onChangeText={value => {
+                setPassword(value);
+                let error = validation.validatePassword(value);
+                setPasswordError(error);
+              }}
             />
             {passwordError ? (
               <Text style={styles.error}>{passwordError}</Text>
@@ -95,6 +104,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputTextContainer: {marginBottom: 8},
+  inputConatiner: {
+    padding: 15,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: COLORS.white,
+    backgroundColor: COLORS.whiteTransparent,
+  },
   error: {marginBottom: 20, color: COLORS.red},
   nextBtnContainer: {marginTop: 10, marginBottom: 15},
   alreadyAcc: {alignItems: 'center'},

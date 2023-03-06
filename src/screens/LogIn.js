@@ -146,7 +146,7 @@ const LogIn = ({navigation}) => {
                     setError(prevErr => {
                       return {
                         ...prevErr,
-                        passwordErr: error,
+                        passwordErr: error, 
                       };
                     });
                   }}
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   forgottenTextBtn: {
-    width: '70%',
+    width: '60%',
   },
   forgottenText: {
     color: COLORS.white,
