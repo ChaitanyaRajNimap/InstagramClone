@@ -23,25 +23,53 @@ const BirthDate = ({navigation}) => {
   const [open, setOpen] = useState(false);
   const [dateToDispaly, setDateToDisplay] = useState(null);
 
-  useEffect(() => {
+  const [birthDate, setBirthDate] = useState(null);
+  const [birthDateError, setBirthDateError] = useState(null);
+
+  // useEffect(() => {
+  //   let options = {day: 'numeric', month: 'long', year: 'numeric'};
+  //   let formattedDate = date.toLocaleDateString('en-US', options);
+
+  //   setDateToDisplay(formattedDate);
+  // }, [date]);
+
+  //For formatting date
+  const formatDate = value => {
     let options = {day: 'numeric', month: 'long', year: 'numeric'};
-    let formattedDate = date.toLocaleDateString('en-US', options);
+    let formattedDate = value.toLocaleDateString('en-US', options);
 
     setDateToDisplay(formattedDate);
-  }, [date]);
+  };
+
+  //Covert to send in post req
+  const convertDateToSend = value => {
+    const currentDate = value || date;
+    let tempDate = new Date(currentDate);
+    let month = '' + (tempDate.getMonth() + 1),
+      day = '' + tempDate.getDate(),
+      year = tempDate.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  };
 
   //For handling Next
-  // const handleNext = () => {
-  //   let error = validation.validateField(birthDate);
-  //   setBirthDateError(error);
-  //   if (!error) {
-  //     console.log('birthDate : ', birthDate);
-  //     //   navigation.navigate('SaveLoginInfo');
-  //   }
-  // };
+  const handleNext = () => {
+    let error = validation.validateField(birthDate);
+    setBirthDateError(error);
+    if (!error) {
+      console.log('birthDate : ', birthDate);
+      navigation.navigate('CreateUsername');
+    }
+  };
 
-  console.log('DATE : ', date);
-  console.log('DATE TO DISPLAY : ', dateToDispaly);
+  console.log('ERROR : ', birthDateError);
 
   return (
     <SafeAreaView style={GLOBALSTYLES.safearea}>
@@ -85,14 +113,18 @@ const BirthDate = ({navigation}) => {
               console.log('Pressed');
               setOpen(true);
             }}>
-            <Text style={styles.btnTextStyle}>date</Text>
+            <Text style={styles.btnTextStyle}>
+              {dateToDispaly ? dateToDispaly : 'Birthday (0 year old)'}
+            </Text>
           </TouchableOpacity>
-          {/* {birthDateError ? (
-              <Text style={styles.error}>{birthDateError}</Text>
-            ) : null} */}
+          {birthDateError ? (
+            <Text style={styles.error}>{birthDateError}</Text>
+          ) : (
+            <Text style={styles.error}></Text>
+          )}
           <CustomLongBtn
             title="Next"
-            onPress={() => {}}
+            onPress={handleNext}
             customStyles={styles.nextBtnContainer}
           />
           {/* </KeyboardAvoidingView> */}
@@ -114,6 +146,10 @@ const BirthDate = ({navigation}) => {
           onConfirm={date => {
             setOpen(false);
             setDate(date);
+            formatDate(date);
+            setBirthDate(convertDateToSend(date));
+            let err = validation.validateField(date);
+            setBirthDateError(err);
           }}
           onCancel={() => setOpen(false)}
           maximumDate={new Date()}

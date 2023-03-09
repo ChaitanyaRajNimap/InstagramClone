@@ -10,6 +10,9 @@ import NameScreen from './src/screens/NameScreen';
 import CreatePswd from './src/screens/CreatePswd';
 import SaveLoginInfo from './src/screens/SaveLoginInfo';
 import BirthDate from './src/screens/BirthDate';
+import CreateUsername from './src/screens/CreateUsername';
+import TermsAndPolicies from './src/screens/TermsAndPolicies';
+import AddProfile from './src/screens/AddProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,9 +55,24 @@ const App = () => {
           component={SaveLoginInfo}
           options={{headerShown: false}}
         /> */}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="BirthDate"
           component={BirthDate}
+          options={{headerShown: false}}
+        /> */}
+        {/* <Stack.Screen
+          name="CreateUsername"
+          component={CreateUsername}
+          options={{headerShown: false}}
+        /> */}
+        {/* <Stack.Screen
+          name="TermsAndPolicies"
+          component={TermsAndPolicies}
+          options={{headerShown: false}}
+        /> */}
+        <Stack.Screen
+          name="AddProfile"
+          component={AddProfile}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
